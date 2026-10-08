@@ -1,8 +1,6 @@
 # DSPE-MaskDINO for Rock-Fragment Instance Segmentation
 
-Research code for instance segmentation of rock fragments in blast-pile images. The model extends [MaskDINO](https://github.com/IDEA-Research/MaskDINO) with a ConvNeXtV2-Tiny backbone, improved positional encoding, and a Directional-SCSA feature enhancement module. The two experiment configurations correspond to a limestone blast-pile dataset (`date1`) and a mixed-source rock-pile dataset (`date2`).
-
-
+Research code for instance segmentation of rock fragments in blast-pile images. The model extends [MaskDINO](https://github.com/IDEA-Research/MaskDINO) with a ConvNeXtV2-Tiny backbone, improved positional encoding, and a Directional-SCSA feature enhancement module. 
 ## Environment
 
 The experiments were run with Python 3.9.25, PyTorch 2.7.0 + CUDA 12.8, torchvision 0.22.0 + CUDA 12.8, and a locally built Detectron2 0.6. Other Python packages are listed in `requirements.txt`. CUDA extension compilation also requires a compatible CUDA toolkit and C++ compiler.
@@ -58,8 +56,7 @@ The original research datasets are not publicly released with this repository. T
 Run from the repository root. The configurations below use 80 epochs and select the best checkpoint by validation-set `segm/AP-shone`:
 
 ```bash
-python train_net.py --num-gpus 1 --config-file configs/coco/instance-segmentation/yaml/maskdino_ConvNeXtV2T_date1_dspe_80ep_best_stoneap.yaml
-python train_net.py --num-gpus 1 --config-file configs/coco/instance-segmentation/yaml/maskdino_ConvNeXtV2T_date2_dspe_80ep_best_stoneap.yaml
+python train_net.py --num-gpus 1 --config-file configs/coco/instance-segmentation/yaml/name.yaml
 ```
 
 These configurations reference `weights/convnextv2_tiny.pth` for backbone initialization. Obtain the corresponding ConvNeXtV2-Tiny pretrained checkpoint separately and place it at that path, or update `MODEL.CONVNEXT.WEIGHTS` to its location. Do not confuse this initialization checkpoint with a trained DSPE-MaskDINO model checkpoint.
