@@ -1,5 +1,5 @@
 # Local datasets, weights, checkpoints, and run outputs
-datasets/
+/datasets/
 weights/
 output*/
 outputs/
