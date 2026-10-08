@@ -2,7 +2,6 @@
 
 Research code for instance segmentation of rock fragments in blast-pile images. The model extends [MaskDINO](https://github.com/IDEA-Research/MaskDINO) with a ConvNeXtV2-Tiny backbone, improved positional encoding, and a Directional-SCSA feature enhancement module. The two experiment configurations correspond to a limestone blast-pile dataset (`date1`) and a mixed-source rock-pile dataset (`date2`).
 
-This README is intended for the root of the public code repository, alongside `train_net.py`, `maskdino/`, and `configs/`. It does not include the datasets or trained checkpoints.
 
 ## Environment
 
