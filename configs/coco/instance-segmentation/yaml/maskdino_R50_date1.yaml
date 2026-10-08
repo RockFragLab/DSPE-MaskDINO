@@ -1,0 +1,24 @@
+_BASE_: ../maskdino_R50_bs2_bitmask3s_base.yaml
+MODEL:
+  WEIGHTS: "detectron2://ImageNetPretrained/torchvision/R-50.pkl"
+  SEM_SEG_HEAD:
+    NUM_CLASSES: 2
+DATASETS:
+  TRAIN: ("date1_train",)
+  TEST: ("date1_val",)
+SOLVER:
+  MAX_EPOCH: 100
+  STEP_EPOCHS: (178, 193)
+  CHECKPOINT_EPOCH: 50
+  IMS_PER_BATCH: 2
+  BASE_LR: 0.0002
+TEST:
+  EVAL_PERIOD: 0
+  EVAL_EPOCH: 0
+DATALOADER:
+  FILTER_EMPTY_ANNOTATIONS: True
+  NUM_WORKERS: 4
+SEED: 42
+CUDNN_BENCHMARK: False
+OUTPUT_DIR_AUTO: True
+OUTPUT_DIR: "output/date1_maskdino_R50_bs2_200ep_bitmask3s"

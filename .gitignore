@@ -1,0 +1,30 @@
+# Local datasets, weights, checkpoints, and run outputs
+datasets/
+weights/
+output*/
+outputs/
+large_inference/
+*.pth
+*.pkl
+*.pt
+*.ckpt
+*.npz
+fragmentation_*.csv
+fragmentation_*.json
+
+# Python and native build products
+__pycache__/
+*.py[cod]
+*.pyd
+*.so
+*.dll
+build/
+dist/
+*.egg-info/
+
+# Local editor and operating-system files
+.DS_Store
+.vs/
+.vscode/
+.idea/
+README.initial.md

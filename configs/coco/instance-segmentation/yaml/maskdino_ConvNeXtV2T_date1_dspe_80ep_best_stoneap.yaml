@@ -1,0 +1,27 @@
+_BASE_: maskdino_ConvNeXtV2T_date1_directional_scsa_improned_pe.yaml
+
+MODEL:
+  CONVNEXT:
+    PRETRAINED: False
+    WEIGHTS: "weights/convnextv2_tiny.pth"
+
+DATASETS:
+  TRAIN: ("date1_train",)
+  TEST: ("date1_val",)
+
+SOLVER:
+  MAX_EPOCH: 80
+  STEP_EPOCHS: (71, 77)
+  CHECKPOINT_EPOCH: 20
+
+TEST:
+  EVAL_EPOCH: 1
+  EVAL_START_EPOCH: 65
+  BEST_CHECKPOINT_METRIC: "segm/AP-shone"
+
+VISUALIZATION:
+  ENABLED: False
+  NUM_IMAGES: 0
+
+OUTPUT_DIR_AUTO: False
+

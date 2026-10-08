@@ -1,0 +1,21 @@
+_BASE_: maskdino_R50_date2.yaml
+
+MODEL:
+  FEATURE_ENHANCER:
+    ENABLED: False
+
+DATASETS:
+  TRAIN: ("date2_train",)
+  TEST: ("date2_val",)
+
+SOLVER:
+  MAX_EPOCH: 80
+  STEP_EPOCHS: (71, 77)
+  CHECKPOINT_EPOCH: 20
+
+VISUALIZATION:
+  ENABLED: False
+  NUM_IMAGES: 0
+
+OUTPUT_DIR_AUTO: False
+

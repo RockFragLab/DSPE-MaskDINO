@@ -1,0 +1,35 @@
+_BASE_: maskdino_R50_date2.yaml
+MODEL:
+  BACKBONE:
+    NAME: "D2ConvNeXt"
+    FREEZE_AT: 0
+  SEM_SEG_HEAD:
+    NUM_CLASSES: 2
+  WEIGHTS: ""
+  CONVNEXT:
+    MODEL_NAME: "convnextv2_tiny"
+    WEIGHTS: "weights/convnextv2_tiny.pth"
+    PRETRAINED: False
+    DROP_PATH_RATE: 0.2
+    OUT_FEATURES: ["res2", "res3", "res4", "res5"]
+INPUT:
+  IMAGE_SIZE: 700
+SOLVER:
+  IMS_PER_BATCH: 2
+  BASE_LR: 0.0002
+  MAX_EPOCH: 80
+  STEP_EPOCHS: (71, 77)
+  CHECKPOINT_EPOCH: 20
+TEST:
+  EVAL_PERIOD: 0
+  EVAL_EPOCH: 0
+VISUALIZATION:
+  ENABLED: True
+  PERIOD: 500
+  NUM_IMAGES: 4
+  SCORE_THRESH: 0.5
+  DRAW_GT: True
+  DRAW_CURVES: True
+CUDNN_BENCHMARK: False
+OUTPUT_DIR_AUTO: True
+OUTPUT_DIR: "output/date2_maskdino_ConvNeXtV2T_bs2_100ep_bitmask3s"
