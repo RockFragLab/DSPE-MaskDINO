@@ -89,12 +89,6 @@ python tools/draw_size_overlay.py --result-dir outputs/fragmentation_example --m
 
 The default `--weight-mode area` weights fragments by projected mask area. These are **2D apparent-size estimates**, dependent on segmentation quality, marker detection, and the assumed image-plane scale; they are not direct 3D sieve or mass measurements. The marker must be visible and detected in the analyzed image. Generated masks and measurement outputs are excluded from Git by `.gitignore`.
 
-## Checkpoints and reproducibility
-
-The public release should include the checkpoints used for the reported results, with each file's dataset, seed, epoch/iteration, selection criterion, and SHA-256 checksum. Add verified download links here after uploading the files to GitHub Releases or another stable archive. Checkpoints are excluded from Git commits by `.gitignore`; no checkpoint URLs are available in this draft.
-
-Report the exact data split, preprocessing/augmentation, random seed, and evaluation configuration alongside each result. Checkpoint metadata should describe the training run that actually produced the weights.
-
 ## Acknowledgments and license
 
 This work builds on [MaskDINO](https://github.com/IDEA-Research/MaskDINO), [Detectron2](https://github.com/facebookresearch/detectron2), [ConvNeXt V2](https://github.com/facebookresearch/ConvNeXt-V2), and [SCSA](https://github.com/HZAI-ZJNU/SCSA). Retain upstream copyright notices and check the license of every external component and pretrained weight before redistribution. The MaskDINO-derived code in this repository carries the license terms in `LICENSE`.
