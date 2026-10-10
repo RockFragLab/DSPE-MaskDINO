@@ -53,34 +53,34 @@ The original research datasets are not publicly released with this repository. T
 
 ## Training
 
-Run from the repository root. The configurations below use 80 epochs and select the best checkpoint by validation-set `segm/AP-shone`:
+Run from the repository root. The supplied date2 configuration uses 80 epochs and selects the best model by validation-set `segm/AP-shone`:
 
 ```bash
-python train_net.py --num-gpus 1 --config-file configs/coco/instance-segmentation/yaml/name.yaml
+python train_net.py --num-gpus 1 --config-file configs/coco/instance-segmentation/maskdino_ConvNeXtV2T_date2_dspe_80ep_best_stoneap.yaml
 ```
 
-These configurations reference `weights/convnextv2_tiny.pth` for backbone initialization. Obtain the corresponding ConvNeXtV2-Tiny pretrained checkpoint separately and place it at that path, or update `MODEL.CONVNEXT.WEIGHTS` to its location. Do not confuse this initialization checkpoint with a trained DSPE-MaskDINO model checkpoint.
+This configuration references `weights/convnextv2_tiny.pth` for backbone initialization. Obtain the corresponding ConvNeXtV2-Tiny pretrained weights separately and place them at that path, or update `MODEL.CONVNEXT.WEIGHTS` to their location. These initialization weights are distinct from the trained DSPE-MaskDINO model weights.
 
 ## Evaluation
 
-Set `MODEL.WEIGHTS` to the checkpoint to evaluate. With the supplied configuration, `DATASETS.TEST` points to the **validation** split:
+Set `MODEL.WEIGHTS` to the model weights to evaluate. The inference configuration skips separate ConvNeXtV2 initialization because the released model weights already include the backbone. `DATASETS.TEST` points to the **validation** split:
 
 ```bash
-python train_net.py --num-gpus 1 --eval_only --config-file configs/coco/instance-segmentation/yaml/maskdino_ConvNeXtV2T_date1_dspe_80ep_best_stoneap.yaml MODEL.WEIGHTS path/to/date1_checkpoint.pth
+python train_net.py --num-gpus 1 --eval_only --config-file configs/coco/instance-segmentation/DSPE-MaskDINO_date2_inference.yaml MODEL.WEIGHTS path/to/DSPE-MaskDINO_date2_80ep_model_weights.pth
 ```
 
-To evaluate the held-out test split, use a copy of the relevant configuration with `DATASETS.TEST` changed to `("date1_test",)` or `("date2_test",)`. Keep model selection on the validation split; do not select checkpoints using test results.
+To evaluate the held-out test split, use a copy of the configuration with `DATASETS.TEST` changed to `("date2_test",)`. Keep model selection on the validation split; do not select model weights using test results.
 
-The best-checkpoint configurations use the standard COCO evaluator because `TEST.BEST_CHECKPOINT_METRIC` is set. For the repository's additional instance metrics, use a separate evaluation configuration with `TEST.BEST_CHECKPOINT_METRIC: ""` and the intended `DATASETS.TEST` split. Record the checkpoint filename, dataset split, and metric configuration with every reported result.
+The supplied configuration uses the standard COCO evaluator because `TEST.BEST_CHECKPOINT_METRIC` is set. For the repository's additional instance metrics, use a separate evaluation configuration with `TEST.BEST_CHECKPOINT_METRIC: ""` and the intended `DATASETS.TEST` split. Record the model-weight filename, dataset split, and metric configuration with every reported result.
 
-The released `date2` checkpoint is available in [Release v0.1.0](https://github.com/RockFragLab/DSPE-MaskDINO/releases/tag/v0.1.0): [DSPE-MaskDINO_date2_80ep_final.pth](https://github.com/RockFragLab/DSPE-MaskDINO/releases/download/v0.1.0/DSPE-MaskDINO_date2_80ep_final.pth). Its SHA-256 is `48c282ec4c7bea556fe19008ad1696442c6e28f8b6673d2869daae2f8247db23`. The dataset is not included.
+The trained `date2` model weights are available in [Release v0.1.0](https://github.com/RockFragLab/DSPE-MaskDINO/releases/tag/v0.1.0): [DSPE-MaskDINO_date2_80ep_model_weights.pth](https://github.com/RockFragLab/DSPE-MaskDINO/releases/download/v0.1.0/DSPE-MaskDINO_date2_80ep_model_weights.pth). SHA-256: `d395da8b3201271e1e67c18857ddef9fa7c3fcc701252d5870f0315aade558a4`. The dataset is not included.
 
 ## Apparent fragmentation analysis
 
 `tools/compute_fragmentation.py` runs sliding-window instance segmentation and estimates apparent rock-fragment sizes from the predicted stone masks and a basketball marker of known diameter. Use your measured marker diameter in the selected unit; `246` below is an example, not a universal setting. Run from the repository root:
 
 ```bash
-python tools/compute_fragmentation.py --image path/to/image.jpg --config configs/coco/instance-segmentation/yaml/maskdino_ConvNeXtV2T_date1_dspe_80ep_best_stoneap.yaml --weights path/to/date1_checkpoint.pth --dataset date1_val --marker-real-size 246 --unit mm --tile-size 750 --overlap 148 --gray-input --size-bin-edges "4.75,10,20,40,100,200,300,400,500,600,800" --output-dir outputs/fragmentation_example
+python tools/compute_fragmentation.py --image path/to/image.jpg --config configs/coco/instance-segmentation/DSPE-MaskDINO_date2_inference.yaml --weights path/to/DSPE-MaskDINO_date2_80ep_model_weights.pth --dataset date2_val --marker-real-size 246 --unit mm --tile-size 750 --overlap 148 --gray-input --size-bin-edges "4.75,10,20,40,100,200,300,400,500,600,800" --output-dir outputs/fragmentation_example
 ```
 
 The script writes per-instance sizes, marker measurements, a cumulative passing curve, size-bin percentages, percentile values, an optional expanded Swebrec fit, and a JSON summary. It can also reuse previously saved masks via `--instances-npz`; load only NPZ files you trust. For an overlay labeled with the computed sizes (with `--unit mm`), run:

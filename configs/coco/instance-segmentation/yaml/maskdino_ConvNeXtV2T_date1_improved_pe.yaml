@@ -1,5 +1,0 @@
-_BASE_: maskdino_ConvNeXtV2T_date1.yaml
-MODEL:
-  MaskDINO:
-    IMPROVED_PE: True
-OUTPUT_DIR: "output2/date1_maskdino_ConvNeXtV2T_improved_pe_bs2_80ep_bitmask3s"

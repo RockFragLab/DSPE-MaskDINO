@@ -1,4 +1,4 @@
-_BASE_: ../maskdino_R50_bs2_bitmask3s_base.yaml
+_BASE_: maskdino_R50_bs2_bitmask3s_base.yaml
 
 MODEL:
   WEIGHTS: "detectron2://ImageNetPretrained/torchvision/R-50.pkl"

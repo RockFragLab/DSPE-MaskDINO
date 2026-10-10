@@ -1,0 +1,5 @@
+_BASE_: maskdino_ConvNeXtV2T_date2_dspe_80ep_best_stoneap.yaml
+
+MODEL:
+  CONVNEXT:
+    WEIGHTS: ""
