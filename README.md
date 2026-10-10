@@ -73,6 +73,8 @@ To evaluate the held-out test split, use a copy of the relevant configuration wi
 
 The best-checkpoint configurations use the standard COCO evaluator because `TEST.BEST_CHECKPOINT_METRIC` is set. For the repository's additional instance metrics, use a separate evaluation configuration with `TEST.BEST_CHECKPOINT_METRIC: ""` and the intended `DATASETS.TEST` split. Record the checkpoint filename, dataset split, and metric configuration with every reported result.
 
+The released `date2` checkpoint is available in [Release v0.1.0](https://github.com/RockFragLab/DSPE-MaskDINO/releases/tag/v0.1.0): [DSPE-MaskDINO_date2_80ep_final.pth](https://github.com/RockFragLab/DSPE-MaskDINO/releases/download/v0.1.0/DSPE-MaskDINO_date2_80ep_final.pth). Its SHA-256 is `48c282ec4c7bea556fe19008ad1696442c6e28f8b6673d2869daae2f8247db23`. The dataset is not included.
+
 ## Apparent fragmentation analysis
 
 `tools/compute_fragmentation.py` runs sliding-window instance segmentation and estimates apparent rock-fragment sizes from the predicted stone masks and a basketball marker of known diameter. Use your measured marker diameter in the selected unit; `246` below is an example, not a universal setting. Run from the repository root:
